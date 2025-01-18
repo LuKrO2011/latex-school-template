@@ -1,0 +1,34 @@
+name: Build LaTeX Documents
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the 'main' branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests to 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3  # Check out the repository code
+
+    - name: Set up LaTeX environment
+      run: sudo apt-get update && sudo apt-get install -y texlive-full  # Install LaTeX
+
+    - name: Build Worksheet PDF
+      run: pdflatex -interaction=nonstopmode -output-directory=output worksheet.tex  # Build worksheet PDF
+
+    - name: Build Exam PDF
+      run: pdflatex -interaction=nonstopmode -output-directory=output exam.tex  # Build exam PDF
+
+    - name: Upload PDF Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: built-pdfs
+        path: |
+          output/worksheet.pdf
+          output/exam.pdf
