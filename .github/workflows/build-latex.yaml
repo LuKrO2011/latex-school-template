@@ -36,10 +36,16 @@ jobs:
     - name: Ensure write permissions
       run: chmod -R 777 output
 
-    - name: Build Worksheet PDF
+    - name: Build Worksheet PDF (First Pass)
       run: pdflatex -interaction=nonstopmode -output-directory=output worksheet.tex
 
-    - name: Build Exam PDF
+    - name: Build Worksheet PDF (Second Pass)
+      run: pdflatex -interaction=nonstopmode -output-directory=output worksheet.tex
+
+    - name: Build Exam PDF (First Pass)
+      run: pdflatex -interaction=nonstopmode -output-directory=output exam.tex
+
+    - name: Build Exam PDF (Second Pass)
       run: pdflatex -interaction=nonstopmode -output-directory=output exam.tex
 
     - name: Upload PDF Artifacts
