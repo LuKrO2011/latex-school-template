@@ -1,4 +1,5 @@
 # Latex templates for school worksheets and exams
+[![Build LaTeX Documents](https://github.com/LuKrO2011/latex-school-template/actions/workflows/build-latex.yaml/badge.svg)](https://github.com/LuKrO2011/latex-school-template/actions/workflows/build-latex.yaml)
 
 The repository contains two latex templates for school: `worksheet.cls` and `exam.cls`. Both are extended from a common base template `school.cls`.
 
