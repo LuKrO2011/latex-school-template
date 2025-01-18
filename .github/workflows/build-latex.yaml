@@ -3,10 +3,10 @@ name: Build LaTeX Documents
 on:
   push:
     branches:
-      - main  # Trigger on push to the 'main' branch
+      - main
   pull_request:
     branches:
-      - main  # Trigger on pull requests to 'main'
+      - main
 
 jobs:
   build:
@@ -14,16 +14,33 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3  # Check out the repository code
+      uses: actions/checkout@v3
+
+    - name: Cache TeX Live packages
+      uses: actions/cache@v3
+      with:
+        path: /usr/local/texlive
+        key: texlive-${{ runner.os }}-${{ hashFiles('**/*.tex') }}
+        restore-keys: |
+          texlive-${{ runner.os }}-
 
     - name: Set up LaTeX environment
-      run: sudo apt-get update && sudo apt-get install -y texlive-full  # Install LaTeX
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-full
+
+    - name: Create output directory
+      run: mkdir -p output
+
+    - name: Ensure write permissions
+      run: chmod -R 777 output
 
     - name: Build Worksheet PDF
-      run: pdflatex -interaction=nonstopmode -output-directory=output worksheet.tex  # Build worksheet PDF
+      run: pdflatex -interaction=nonstopmode -output-directory=output worksheet.tex
 
     - name: Build Exam PDF
-      run: pdflatex -interaction=nonstopmode -output-directory=output exam.tex  # Build exam PDF
+      run: pdflatex -interaction=nonstopmode -output-directory=output exam.tex
 
     - name: Upload PDF Artifacts
       uses: actions/upload-artifact@v3
