@@ -64,7 +64,8 @@
 
 % Sidebox on the first page
 \newcommand{\sideboxfirstpage}{
-    \begin{tikzpicture}[remember picture, overlay]
+    \begin{tikzpicture}[remember picture, overlay]        
+        % \draw[thick] (-2cm, 2cm) rectangle ($(current page.south west) + (2.8cm, 2cm)$);
         \draw[thick] (-0.7cm, 2cm) rectangle ($(current page.south west) + (0.8cm, 2cm)$);
     \end{tikzpicture}%
 }
@@ -101,12 +102,13 @@
 
 % Define the points box for the task
 \newcommand{\pointsbox}[2]{%
+    \edef\offset{\dimexpr -3.4cm - (1.6cm * (\f@size - 10) / 10)\relax}
     \ifthenelse{\equal{#2}{left}}{
-        \boxat{west}{\points{#1}}{-3.4cm}{0.4em}
+        \boxat{west}{\points{#1}}{\offset}{0.4em}
     }{
         \boxat{west}{\points{#1}}{12cm}{0.4em}
     }
-    \hspace{-0.74cm} % Remove indentation of next paragraph
+    \hspace{-0.74cm}
 }
 
 % Define a inplace-layout for the points
