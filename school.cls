@@ -7,52 +7,20 @@
 \newif\ifsolution
 \solutionfalse % By default, solutions are hidden (false)
 
-%Set @textsize and @mathsize
+% Set @textsize and @mathsize
+\RequirePackage{xkeyval} % Key-value parsing for options - early import required
 \def\@textsize{12pt}   % Default text font size
 \def\@mathsize{14pt}   % Default math font size
-
-% Declare options
-\RequirePackage{xkeyval} % Key-value parsing for options
 \DeclareOptionX{textsize}{\edef\@textsize{#1}}
 \DeclareOptionX{mathsize}{\edef\@mathsize{#1}} 
 
+% Solution option
 \DeclareOption{solution}{\solutiontrue}
+
+% Pass rest to extarticle
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{extarticle}}
 \ProcessOptions\relax
 \ProcessOptionsX\relax
-
-%%%-------------------------------------------------------------------------
-%%%   Strip 'pt' and Set Numerical Values
-%%%-------------------------------------------------------------------------
-\makeatletter
-\def\strippt#1pt{#1}  % Removes 'pt' from a value
-
-% Store the numeric value without 'pt'
-\edef\textsizeNumeric{\expandafter\strippt\@textsize}
-\edef\mathsizeNumeric{\expandafter\strippt\@mathsize}
-
-%%%-------------------------------------------------------------------------
-%%%   Font Size Selection
-%%%-------------------------------------------------------------------------
-\newcommand{\settextsize}{
-    \def\actualtextsize{10} % Default size
-    \ifnum\textsizeNumeric=10 \def\actualtextsize{10} \fi
-    \ifnum\textsizeNumeric=11 \def\actualtextsize{11} \fi
-    \ifnum\textsizeNumeric=12 \def\actualtextsize{12} \fi
-    \ifnum\textsizeNumeric=14 \def\actualtextsize{14.4} \fi
-    \ifnum\textsizeNumeric=17 \def\actualtextsize{17.28} \fi
-}
-\settextsize  % Apply the font size selection
-
-%%%-------------------------------------------------------------------------
-%%%   Math Size Adjustments
-%%%-------------------------------------------------------------------------
-\newcommand{\setmathsizes}{
-    \edef\scriptmathsize{\the\numexpr (\mathsizeNumeric * 7 + 5) / 10\relax} % Round (0.7 * mathsizeNumeric)
-    \edef\scriptscriptmathsize{\the\numexpr (\mathsizeNumeric * 5 + 5) / 10\relax} % Round (0.5 * mathsizeNumeric)
-}
-\setmathsizes  % Apply math sizes
-
 
 %%%-------------------------------------------------------------------------
 %%%   Base Class and Packages
@@ -82,6 +50,35 @@
 
 % Default layout
 \geometry{a4paper, left=20mm, top=20mm, right=20mm, bottom=20mm}
+
+%%%-------------------------------------------------------------------------
+%%%   Font Size
+%%%-------------------------------------------------------------------------
+
+\makeatletter
+\def\strippt#1pt{#1}  % Removes 'pt' from a value
+
+% Store the numeric values without 'pt'
+\edef\textsizeNumeric{\expandafter\strippt\@textsize}
+\edef\mathsizeNumeric{\expandafter\strippt\@mathsize}
+
+% Get exact fontsizes
+\newcommand{\settextsize}{
+    \def\actualtextsize{10} % Default size
+    \ifnum\textsizeNumeric=10 \def\actualtextsize{10} \fi
+    \ifnum\textsizeNumeric=11 \def\actualtextsize{11} \fi
+    \ifnum\textsizeNumeric=12 \def\actualtextsize{12} \fi
+    \ifnum\textsizeNumeric=14 \def\actualtextsize{14.4} \fi
+    \ifnum\textsizeNumeric=17 \def\actualtextsize{17.28} \fi
+}
+\settextsize  % Apply font size
+
+% Calculate subscript and subsubscript based on mathsize
+\newcommand{\setmathsizes}{
+    \edef\scriptmathsize{\the\numexpr (\mathsizeNumeric * 7 + 5) / 10\relax} % Round (0.7 * mathsizeNumeric)
+    \edef\scriptscriptmathsize{\the\numexpr (\mathsizeNumeric * 5 + 5) / 10\relax} % Round (0.5 * mathsizeNumeric)
+}
+\setmathsizes  % Apply math font size
 
 %%%-------------------------------------------------------------------------
 %%%   Fonts and Colors
