@@ -25,13 +25,13 @@
 
 % Store the numeric value without 'pt'
 \edef\textsizeNumeric{\expandafter\strippt\@textsize}
+\edef\mathsizeNumeric{\expandafter\strippt\@mathsize}
 
 %%%-------------------------------------------------------------------------
 %%%   Font Size Selection
 %%%-------------------------------------------------------------------------
 \newcommand{\settextsize}{
     \def\actualtextsize{10} % Default size
-
     \ifnum\textsizeNumeric=10 \def\actualtextsize{10} \fi
     \ifnum\textsizeNumeric=11 \def\actualtextsize{11} \fi
     \ifnum\textsizeNumeric=12 \def\actualtextsize{12} \fi
@@ -45,19 +45,19 @@
 %%%   Math Size Adjustments
 %%%-------------------------------------------------------------------------
 \newcommand{\setmathsizes}{
-    \ifnum\textsizeNumeric=10
+    \ifnum\mathsizeNumeric=10
         \def\scriptmathsize{7} \def\scriptscriptmathsize{5} 
     \fi
-    \ifnum\textsizeNumeric=11
+    \ifnum\mathsizeNumeric=11
         \def\scriptmathsize{8} \def\scriptscriptmathsize{6} 
     \fi
-    \ifnum\textsizeNumeric=12
+    \ifnum\mathsizeNumeric=12
         \def\scriptmathsize{8.4} \def\scriptscriptmathsize{6} 
     \fi
-    \ifnum\textsizeNumeric=14
+    \ifnum\mathsizeNumeric=14
         \def\scriptmathsize{10} \def\scriptscriptmathsize{7} 
     \fi
-    \ifnum\textsizeNumeric=17
+    \ifnum\mathsizeNumeric=17
         \def\scriptmathsize{12} \def\scriptscriptmathsize{8} 
     \fi
 }
