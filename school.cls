@@ -26,10 +26,6 @@
 %%%   Base Class and Packages
 %%%-------------------------------------------------------------------------
 \LoadClass[\@textsize]{extarticle} % Use article as the base class
-\AtBeginDocument{
-    \DeclareMathSizes{\actualtextsize}{\@mathsize}{\scriptmathsize}{\scriptscriptmathsize}
-}
-\makeatother
 
 \RequirePackage{geometry}   % Page layout
 \RequirePackage{amsmath}    % Math support
@@ -55,7 +51,6 @@
 %%%   Font Size
 %%%-------------------------------------------------------------------------
 
-\makeatletter
 \def\strippt#1pt{#1}  % Removes 'pt' from a value
 
 % Store the numeric values without 'pt'
@@ -78,7 +73,12 @@
     \edef\scriptmathsize{\the\numexpr (\mathsizeNumeric * 7 + 5) / 10\relax} % Round (0.7 * mathsizeNumeric)
     \edef\scriptscriptmathsize{\the\numexpr (\mathsizeNumeric * 5 + 5) / 10\relax} % Round (0.5 * mathsizeNumeric)
 }
-\setmathsizes  % Apply math font size
+
+% Apply the math font size
+\setmathsizes
+\AtBeginDocument{
+    \DeclareMathSizes{\actualtextsize}{\@mathsize}{\scriptmathsize}{\scriptscriptmathsize}
+}
 
 %%%-------------------------------------------------------------------------
 %%%   Fonts and Colors
@@ -214,4 +214,3 @@
 \setlength{\parskip}{1em}
 \setlist[itemize]{noitemsep, topsep=0pt}
 \titlespacing*{\section}{0pt}{\baselineskip}{0pt}
-
