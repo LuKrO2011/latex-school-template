@@ -45,21 +45,8 @@
 %%%   Math Size Adjustments
 %%%-------------------------------------------------------------------------
 \newcommand{\setmathsizes}{
-    \ifnum\mathsizeNumeric=10
-        \def\scriptmathsize{7} \def\scriptscriptmathsize{5} 
-    \fi
-    \ifnum\mathsizeNumeric=11
-        \def\scriptmathsize{8} \def\scriptscriptmathsize{6} 
-    \fi
-    \ifnum\mathsizeNumeric=12
-        \def\scriptmathsize{8.4} \def\scriptscriptmathsize{6} 
-    \fi
-    \ifnum\mathsizeNumeric=14
-        \def\scriptmathsize{10} \def\scriptscriptmathsize{7} 
-    \fi
-    \ifnum\mathsizeNumeric=17
-        \def\scriptmathsize{12} \def\scriptscriptmathsize{8} 
-    \fi
+    \edef\scriptmathsize{\the\numexpr (\mathsizeNumeric * 7 + 5) / 10\relax} % Round (0.7 * mathsizeNumeric)
+    \edef\scriptscriptmathsize{\the\numexpr (\mathsizeNumeric * 5 + 5) / 10\relax} % Round (0.5 * mathsizeNumeric)
 }
 
 \setmathsizes  % Apply math sizes
@@ -69,7 +56,6 @@
 %%%-------------------------------------------------------------------------
 \LoadClass[\@textsize]{extarticle} % Pass font size to article class
 
-\RequirePackage{fix-cm}
 \AtBeginDocument{
     \DeclareMathSizes{\actualtextsize}{\@mathsize}{\scriptmathsize}{\scriptscriptmathsize}
 }
