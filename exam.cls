@@ -20,7 +20,8 @@
 \DeclareOption{points=inplace}{\renewcommand{\pointsplacement}{inplace}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 
-\def\@boxoffset{-0cm}
+% Points box offset
+\def\@boxoffset{-0cm} % default for 10pt
 \DeclareOptionX{boxoffset}{\edef\@boxoffset{#1}}
 
 \ProcessOptions\relax
@@ -34,7 +35,6 @@
     right=20mm, 
     bottom=20mm
 }
-
 
 %%%-------------------------------------------------------------------------
 %%%   Default Values
