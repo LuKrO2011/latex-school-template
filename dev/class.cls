@@ -16,61 +16,61 @@
 
 \ProcessOptionsX\relax  % Process options before using them
 
+%%%-------------------------------------------------------------------------
+%%%   Strip 'pt' and Set Numerical Values
+%%%-------------------------------------------------------------------------
+\makeatletter
+% Extract the numeric value from \@textsize (strip 'pt')
+\def\strippt#1pt{#1}  % Removes 'pt' from a value
+
+% Store the numeric value without 'pt'
+\edef\textsizeNumeric{\expandafter\strippt\@textsize}
 
 %%%-------------------------------------------------------------------------
-%%%   Commands and Environments
+%%%   Font Size Selection
 %%%-------------------------------------------------------------------------
-% Switch implementation
-\usepackage{xifthen}
-\newcommand{\ifequals}[3]{\ifthenelse{\equal{#1}{#2}}{#3}{}}
-\newcommand{\case}[2]{#1 #2} % Dummy, so \renewcommand has something to overwrite...
-\newenvironment{switch}[1]{\renewcommand{\case}{\ifequals{#1}}}{}
+\newcommand{\settextsize}{
+    \def\actualtextsize{10} % Default size
 
-\begin{switch}{\@textsize}
-    \case{10}{\def\actualtextsize{10}}
-    \case{11}{\def\actualtextsize{11}}
-    \case{12}{\def\actualtextsize{12}}
-    \case{14}{\def\actualtextsize{14.4}}
-    \case{17}{\def\actualtextsize{17.28}}
-    \case{}{ \def\actualtextsize{10}} % Default case (if no match)
-\end{switch}
+    \ifnum\textsizeNumeric=10 \def\actualtextsize{10} \fi
+    \ifnum\textsizeNumeric=11 \def\actualtextsize{11} \fi
+    \ifnum\textsizeNumeric=12 \def\actualtextsize{12} \fi
+    \ifnum\textsizeNumeric=14 \def\actualtextsize{14.4} \fi
+    \ifnum\textsizeNumeric=17 \def\actualtextsize{17.28} \fi
+}
 
-% \ifnum\@textsize=10
-% \def\actualtextsize{10}
-% \else\ifnum\@textsize=11
-% \def\actualtextsize{11}
-% \else\ifnum\@textsize=12
-% \def\actualtextsize{12}
-% \else\ifnum\@textsize=14
-% \def\actualtextsize{14.4}
-% \else\ifnum\@textsize=17
-% \def\actualtextsize{17.28}
-% \else
-% \def\actualtextsize{10}
-% \fi\fi\fi\fi\fi
+\settextsize  % Apply the font size selection
 
+%%%-------------------------------------------------------------------------
+%%%   Math Size Adjustments
+%%%-------------------------------------------------------------------------
+\newcommand{\setmathsizes}{
+    \ifnum\textsizeNumeric=10
+        \def\scriptmathsize{7} \def\scriptscriptmathsize{5} 
+    \fi
+    \ifnum\textsizeNumeric=11
+        \def\scriptmathsize{8} \def\scriptscriptmathsize{6} 
+    \fi
+    \ifnum\textsizeNumeric=12
+        \def\scriptmathsize{8.4} \def\scriptscriptmathsize{6} 
+    \fi
+    \ifnum\textsizeNumeric=14
+        \def\scriptmathsize{10} \def\scriptscriptmathsize{7} 
+    \fi
+    \ifnum\textsizeNumeric=17
+        \def\scriptmathsize{12} \def\scriptscriptmathsize{8} 
+    \fi
+}
 
-\def\scriptmathsize{\numexpr\@mathsize*7/10\relax}
-\def\scriptscriptmathsize{\numexpr\scriptmathsize*7/10\relax}
+\setmathsizes  % Apply math sizes
 
-
-
-
-
+%%%-------------------------------------------------------------------------
+%%%   Load Base Class
+%%%-------------------------------------------------------------------------
 \LoadClass[\@textsize]{extarticle} % Pass font size to article class
 
 \RequirePackage{fix-cm}
 \AtBeginDocument{
-%   \DeclareMathSizes{\@textsize}{\@mathsize}{\@mathsize}{\@mathsize}
-% \DeclareMathSizes{10.95}{10}{7}{7}   % For size 10 text
-% \DeclareMathSizes{11}{19}{13}{9}      % For size 11 text
-% \DeclareMathSizes{12}{20}{14}{10}     % For size 12 text
-% \DeclareMathSizes{14.4}{10}{8}{7}     % For size 14 text
-% \DeclareMathSizes{17.28}{7}{8}{7}     % For size 17 text
-
-\DeclareMathSizes{\actualtextsize}{\@mathsize}{\scriptmathsize}{\scriptscriptmathsize}
-
-
-
-
+    \DeclareMathSizes{\actualtextsize}{\@mathsize}{\scriptmathsize}{\scriptscriptmathsize}
 }
+\makeatother
