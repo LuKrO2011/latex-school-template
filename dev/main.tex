@@ -1,0 +1,33 @@
+\documentclass[
+textsize=10pt,
+mathsize=17pt,
+]{class}
+
+\usepackage{lipsum}
+
+\makeatletter
+\typeout{Text size: \@xivpt}
+\makeatother
+
+\begin{document}
+
+
+
+Test
+
+% Inline math
+This is an inline equation: \( E = mc
+^2 \).
+
+$a_{\scriptscriptstyle b}$
+
+
+% Display math
+This is a displayed equation:
+\[
+E = (a_b)_c
+\]
+
+\lipsum[1]
+
+\end{document}
