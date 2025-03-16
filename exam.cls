@@ -19,7 +19,12 @@
 \DeclareOption{points=right}{\renewcommand{\pointsplacement}{right}}
 \DeclareOption{points=inplace}{\renewcommand{\pointsplacement}{inplace}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+
+\def\@boxoffset{-0cm}
+\DeclareOptionX{boxoffset}{\edef\@boxoffset{#1}}
+
 \ProcessOptions\relax
+\ProcessOptionsX\relax
 
 \geometry{
     includehead,
@@ -102,7 +107,7 @@
 
 % Define the points box for the task
 \newcommand{\pointsbox}[2]{%
-    \edef\offset{\dimexpr -3.4cm - (1.6cm * (\f@size - 10) / 10)\relax}
+    \edef\offset{\dimexpr -3.4cm - \@boxoffset}
     \ifthenelse{\equal{#2}{left}}{
         \boxat{west}{\points{#1}}{\offset}{0.4em}
     }{
