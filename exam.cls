@@ -71,7 +71,7 @@
 \newcommand{\sideboxfirstpage}{
     \begin{tikzpicture}[remember picture, overlay]        
         % \draw[thick] (-2cm, 2cm) rectangle ($(current page.south west) + (2.8cm, 2cm)$);
-        \draw[thick] (-0.7cm, 2cm) rectangle ($(current page.south west) + (0.8cm, 2cm)$);
+        \draw[thick] (-0.7cm, 1cm) rectangle ($(current page.south west) + (0.8cm, 2cm)$);
     \end{tikzpicture}%
 }
 
@@ -88,10 +88,10 @@
 
 % Define a Aufgabe - section with a node for alignment
 \newcommand{\taskwithpoints}{%
-    \section*{%
+    \section*{\hspace{-0.3em}%
         \tikz[remember picture, baseline=(task-title.base)] 
         \node (task-title) {Aufgabe \theTaskCounter}; % Create a TikZ node for alignment
-    }%
+    }\vspace{-1.5em}%
 }
 
 % Define a boxat; params: anchor, content, xshift, yshift
@@ -107,7 +107,7 @@
 
 % Define the points box for the task
 \newcommand{\pointsbox}[2]{%
-    \edef\offset{\dimexpr -3.4cm - \@boxoffset}
+    \edef\offset{\dimexpr -3.2cm - \@boxoffset}
     \ifthenelse{\equal{#2}{left}}{
         \boxat{west}{\points{#1}}{\offset}{0.4em}
     }{

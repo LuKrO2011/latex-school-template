@@ -78,6 +78,7 @@
 \usetikzlibrary{calc}       % Advanced TikZ calculations
 \RequirePackage{titlesec}   % Custom section titles
 \RequirePackage{enumitem}   % Custom lists
+\RequirePackage{parskip}    % No paragraph indentation
 
 % Default layout
 \geometry{a4paper, left=20mm, top=20mm, right=20mm, bottom=20mm}
