@@ -167,12 +167,12 @@
 
 % Name placeholder
 \newcommand{\nameplaceholder}{%
-    \rule{8.5cm}{0.1mm}\hspace{1cm}
+    \underline{\hspace{6cm}}
 }
 
 % Name field
 \newcommand{\namefield}{%
-    \textbf{Name:} \nameplaceholder
+    Name: \nameplaceholder
 }
 
 % Define custom header style for the first page
@@ -192,7 +192,16 @@
     \end{minipage}
 
     \vspace{1cm}
-    Beachte:
+
+    \begin{minipage}[t]{0.5\textwidth}
+        Beachte:
+    \end{minipage}
+    \begin{minipage}[t]{0.5\textwidth}
+        \begin{flushright}
+            \namefield
+        \end{flushright}
+    \end{minipage}
+ 
     \@notes
 }
 \AtBeginDocument{\maketitle}
