@@ -31,7 +31,7 @@
     includehead,
     a4paper, 
     left=30mm, % Add more space to the left
-    top=10mm, 
+    top=0mm, 
     right=20mm, 
     bottom=20mm
 }
@@ -78,7 +78,7 @@
 % Sidebox on other pages
 \newcommand{\sideboxotherpage}{%
     \begin{tikzpicture}[remember picture, overlay]
-        \draw[thick] (current page.north west) ++(0.8cm,-2cm) rectangle ++(1.5cm,-\textheight);
+        \draw[thick] (current page.north west) ++(0.8cm,-1cm) rectangle ++(1.5cm,-\textheight);
     \end{tikzpicture}%
 }
 
@@ -90,7 +90,7 @@
 \newcommand{\taskwithpoints}{%
     \section*{\hspace{-0.3em}%
         \tikz[remember picture, baseline=(task-title.base)] 
-        \node (task-title) {Aufgabe \theTaskCounter}; % Create a TikZ node for alignment
+        \node (task-title) {\large{Aufgabe} \theTaskCounter}; % Create a TikZ node for alignment
     }\vspace{-1.5em}%
 }
 
@@ -141,7 +141,7 @@
             \begin{tikzpicture}[overlay, remember picture]
                 \node[anchor=south, fill=gray!20, draw=black, rounded corners=2pt, 
                     inner sep=4pt, font=\small, xshift=0, yshift=0, minimum width=1.25cm] 
-                at ($(current page.south west) + (1.55cm, 2.7cm)$)
+                at ($(current page.south west) + (1.55cm, 2.34cm)$)
                 {\textbf{\points{\total{PointsCounter}}}};
             \end{tikzpicture}%
         }
