@@ -71,14 +71,14 @@
 \newcommand{\sideboxfirstpage}{
     \begin{tikzpicture}[remember picture, overlay]        
         % \draw[thick] (-2cm, 2cm) rectangle ($(current page.south west) + (2.8cm, 2cm)$);
-        \draw[thick] (-0.7cm, 1cm) rectangle ($(current page.south west) + (0.8cm, 2cm)$);
+        \draw[thick] (-0.7cm, 0.5cm) rectangle ($(current page.south west) + (0.8cm, 1.6cm)$);
     \end{tikzpicture}%
 }
 
 % Sidebox on other pages
 \newcommand{\sideboxotherpage}{%
     \begin{tikzpicture}[remember picture, overlay]
-        \draw[thick] (current page.north west) ++(0.8cm,-1cm) rectangle ++(1.5cm,-\textheight);
+        \draw[thick] (current page.north west) ++(0.8cm,-1.2cm) rectangle ++(1.5cm,-\textheight);
     \end{tikzpicture}%
 }
 
@@ -141,7 +141,7 @@
             \begin{tikzpicture}[overlay, remember picture]
                 \node[anchor=south, fill=gray!20, draw=black, rounded corners=2pt, 
                     inner sep=4pt, font=\small, xshift=0, yshift=0, minimum width=1.25cm] 
-                at ($(current page.south west) + (1.55cm, 2.34cm)$)
+                at ($(current page.south west) + (1.55cm, 2.25cm)$)
                 {\textbf{\points{\total{PointsCounter}}}};
             \end{tikzpicture}%
         }
